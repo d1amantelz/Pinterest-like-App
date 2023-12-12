@@ -1,0 +1,15 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+<div class="columns">
+
+    {% for collection in collections %}
+    <figure class="collection">
+        <a href="{{ collection.get_absolute_url }}"><img src="{{ collection.collection_image.url }}" alt>
+            <figcaption class="collection-name">{{ collection.title }}</figcaption>
+        </a>
+    </figure>
+    {% endfor %}
+
+</div>
+{% endblock %}

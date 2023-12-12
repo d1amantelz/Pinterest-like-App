@@ -1,0 +1,50 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+
+<div class="project-wrapper">
+    <div class="project-content">
+
+        {% if pin.image %}
+            <img class="project-obj" src="{{ pin.image.url }}" alt="">
+        {% endif %}
+
+        {% if pin.video %}
+            <video class="project-obj" autoplay muted loop>
+                <source src="{{ pin.video.url }}" type="video/mp4">
+                <source src="{{ pin.video.url }}" type="video/webm">
+                <source src="{{ pin.video.url }}" type="video/ogg">
+                <object data="{{ pin.video.url }}" type="application/x-shockwave-flash">
+                  <param name="movie" value="{{ pin.video.url }}">
+                </object>
+              </video>
+        {% endif %}
+
+    </div>
+    <div class="project-info">
+        <h2>{{ pin.title }}</h2>
+        <p>{{ pin.description }}</p>
+        <div class="project-author-block">
+            <img class="project-author-img" src="{{ pin.author.photo.url }}" alt="">
+            <span> <a href="{{ pin.author.get_absolute_url }}">{{ pin.author }}</a></span>
+        </div>
+        <div class="hr"></div>
+
+        <div class="button-container">
+            <button>Нравится (405)</button>
+
+            <button>Поделиться</button>
+            <div class="dropdown">
+                <select id="collectionSelect">
+                    <option value="Favorites">Favorites</option>
+                    <option value="Программирование">Программирование</option>
+                    <option value="Аниме">Аниме</option>
+                </select>
+                <button>Сохранить</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

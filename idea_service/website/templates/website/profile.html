@@ -1,0 +1,53 @@
+{% extends 'website/base.html' %}
+
+{% block content %}
+
+
+<div class="info">
+
+    <div class="round-image">
+        <img src="{{ profile.photo.url }}" alt="Описание изображения"/>
+    </div>
+    <h1>{{ profile.user.username }}</h1>
+
+    {% if profile.about %}
+    <p>
+        {{ profile.about }}
+    </p>
+    {% endif %}
+
+    {% if request.user.profile == profile %}
+    <button style="margin-bottom: 11px; letter-spacing: 3px;"><a href="{% url 'change_profile' %}">Изменить профиль</a></button>
+    {% endif %}
+</div>
+
+<hr class="line">
+
+<p class="count-projects">Проектов — {{ pins.count }}</p>
+<div class="columns">
+    {% for pin in pins %}
+    <figure>
+        <a href="{{ pin.get_absolute.url }}">
+            {% if pin.image %}
+            <img class="project-obj" src="{{ pin.image.url }}" alt="">
+            {% endif %}
+
+            {% if pin.video %}
+            <video autoplay muted loop>
+                <source src="{{ pin.video.url }}" type="video/mp4">
+                <source src="{{ pin.video.url }}" type="video/webm">
+                <source src="{{ pin.video.url }}" type="video/ogg">
+                <object data="{{ pin.video.url" type="application/x-shockwave-flash">
+                    <param name="movie" value="{{ pin.video.url }}">
+                </object>
+            </video>
+            {% endif %}
+
+            <figcaption>{{ pin.title }}</figcaption>
+        </a>
+    </figure>
+    {% endfor %}
+</div>
+
+
+{% endblock %}

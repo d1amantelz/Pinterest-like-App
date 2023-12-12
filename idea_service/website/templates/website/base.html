@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page_title }}</title>
+    <link type="text/css" href="{% static 'website/css/style.css' %}" rel="stylesheet"/>
+</head>
+
+<body>
+
+<header>
+    <ul class="nav">
+
+        {% if request.user.is_authenticated %}
+
+        {% for item in main_menu %}
+        <li class="nav-item">
+            <img src="{% static item.logo_src %}" alt="{{ item.alt }}"/>
+            <a href="{% url item.href %}">{{ item.name }}</a>
+        </li>
+        {% endfor %}
+
+        <li class="nav-item prev-last profile-name">
+            <img src="{% static 'website/logos/user-profile.svg' %}" alt="{{ user_menu.0.alt }}">
+            <a href="{{ request.user.profile.get_absolute_url }}">{{ user.username }}</a>
+        </li>
+        <li class="nav-item last">
+            <img src="{% static 'website/logos/logout.svg' %}" alt="{{ user_menu.1.alt }}"/>
+            <a href="{% url 'users:logout' %}">Выйти</a>
+        </li>
+
+        {% else %}
+        <li class="nav-item">
+            <img src="{% static main_menu.0.logo_src %}" alt="{{ main_menu.0.alt }}"/>
+            <a href="{% url main_menu.0.href %}">{{ main_menu.0.name }}</a>
+        </li>
+        <li class="nav-item">
+            <img src="{% static main_menu.3.logo_src %}" alt="{{ main_menu.3.alt }}"/>
+            <a href="{% url main_menu.3.href %}">{{ main_menu.3.name }}</a>
+        </li>
+
+        <li class="nav-item prev-last">
+            <img src="{% static user_menu.0.logo_src %}" alt="{{ user_menu.0.alt }}"/>
+            <a href="{% url 'users:login' %}">{{ user_menu.0.name }}</a>
+        </li>
+        <li class="nav-item last">
+            <img src="{% static user_menu.1.logo_src %}" alt="{{ user_menu.1.alt }}"/>
+            <a href="{% url 'users:sign_up' %}">{{ user_menu.1.name }}</a>
+        </li>
+        {% endif %}
+
+    </ul>
+</header>
+
+<div class="content">
+    {% block content %}
+    {% endblock %}
+</div>
+</body>
+
+</html>

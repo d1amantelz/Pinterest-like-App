@@ -1,0 +1,22 @@
+{% extends 'website/base.html' %}
+
+{% load static %}
+{% block content %}
+<div class="form-content-wrapper">
+    <div class="form-content">
+        <form action="{% url 'change_profile' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <label for="profilePhoto">Фото:</label>
+            {{form.photo}}
+
+            <label for="profileAbout">О себе:</label>
+            {{form.about}}
+
+            <button type="submit">Изменить</button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
